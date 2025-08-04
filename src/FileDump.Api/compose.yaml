@@ -1,0 +1,7 @@
+﻿services:
+  filedump.api.web:
+    image: filedump.api.web
+    build:
+      context: .
+      dockerfile: FileDump.Api.Web/Dockerfile
+

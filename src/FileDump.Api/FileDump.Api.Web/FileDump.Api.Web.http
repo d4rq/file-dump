@@ -1,0 +1,6 @@
+@FileDump.Api.Web_HostAddress = http://localhost:5053
+
+GET {{FileDump.Api.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
