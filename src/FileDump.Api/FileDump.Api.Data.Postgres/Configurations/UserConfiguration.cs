@@ -11,7 +11,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("users");
         
         builder.HasKey(x => x.Id);
-        
-        
+
+        builder.HasMany(x => x.Files)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId);
     }
 }
