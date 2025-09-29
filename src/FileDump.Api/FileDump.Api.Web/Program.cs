@@ -17,6 +17,20 @@ var configuration = builder.Configuration;
 services.AddControllers();
 services.AddSwaggerGen();
 
+var corsSettings = builder.Configuration.GetSection("Cors");
+var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowConfiguredOrigins", policy =>
+    {
+        policy.WithOrigins(allowedOrigins ?? [])
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 services.AddDbContext<EfContext>(
     options => options.UseNpgsql(configuration.GetConnectionString("Postgres")));
 
@@ -68,7 +82,7 @@ var app = builder.Build();
 
 app.MapControllers();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("AllowConfiguredOrigins");
 
 if (app.Environment.IsDevelopment())
 {

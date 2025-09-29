@@ -122,6 +122,6 @@ public class MinioService : IMinioService
 
     private string FormatDateTime(DateTime dateTime)
     {
-        return dateTime.ToString("dd.MM.yyyy HH:mm:ss");
+        return dateTime.ToString("dd.MM.yyyy HH:mm");
     }
 }
